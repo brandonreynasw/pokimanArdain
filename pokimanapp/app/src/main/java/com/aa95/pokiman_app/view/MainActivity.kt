@@ -2,6 +2,7 @@ package com.aa95.pokiman_app.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.aa95.pokiman_app.R
@@ -10,7 +11,7 @@ import com.aa95.pokiman_app.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +23,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        viewModel = MainViewModel(application)
-
+        
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         render()
     }
 
