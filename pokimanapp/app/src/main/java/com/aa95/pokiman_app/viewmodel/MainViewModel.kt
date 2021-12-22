@@ -22,12 +22,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun attackPokemon(attacked: Boolean, damage: Int){
         if(attacked){
             myPokemon.value.apply {
-                this!!.currentHp -= damage
+                this!!.currentHp = if(this.currentHp == 0) 0 else this.currentHp - damage
                 myPokemon.value = this
             }
         }else{
             enemyPokemon.value.apply {
-                this!!.currentHp -= damage
+                this!!.currentHp = if(this.currentHp == 0) 0 else this.currentHp - damage
                 enemyPokemon.value = this
             }
         }
