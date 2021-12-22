@@ -15,19 +15,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getPokemon(){
-        myPokemon.value = Pokemon("Pikachu", 100, 10, 10)
-        enemyPokemon.value = Pokemon("Raichu", 100, 10, 10)
+        myPokemon.value = Pokemon("Pikachu", 100, 10, 10, 100)
+        enemyPokemon.value = Pokemon("Raichu", 100, 10, 10, 100)
     }
 
     fun attackPokemon(attacked: Boolean, damage: Int){
         if(attacked){
             myPokemon.value.apply {
-                this!!.hp -= damage
+                this!!.currentHp -= damage
                 myPokemon.value = this
             }
         }else{
             enemyPokemon.value.apply {
-                this!!.hp -= damage
+                this!!.currentHp -= damage
                 enemyPokemon.value = this
             }
         }
