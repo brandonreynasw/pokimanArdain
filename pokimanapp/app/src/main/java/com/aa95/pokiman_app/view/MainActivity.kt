@@ -31,9 +31,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun render(){
         binding.viewModel = viewModel
+
         viewModel.myPokemon.observe(this, Observer {
-            //TODO Add layout changed on damage
+            if(it.currentHp <= 0){
+                binding.pokemon1Info.hpBarView.layoutParams.width = 1
+            }else{
+                val percent = calculateHpBarPercent(it.currentHp, it.maxHp)
+                binding.pokemon1Info.hpBarView.layoutParams.width = (HPBARWIDTH * percent).toInt()
+            }
         })
+
         viewModel.enemyPokemon.observe(this, Observer {
             if(it.currentHp <= 0){
                 binding.pokemon2Info.hpBarView.layoutParams.width = 1
