@@ -36,6 +36,16 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.enemyPokemon.observe(this, Observer {
             binding.pokemon2 = it
+            if(it.currentHp <= 0){
+                binding.pokemon2Info.hpBarView.layoutParams.width = 1
+            }else{
+                val percent = calculatePercent(it.currentHp, it.maxHp)
+                binding.pokemon2Info.hpBarView.layoutParams.width = (660 * percent).toInt()
+            }
         })
+    }
+
+    private fun calculatePercent(currentHp: Int, maxHp: Int) : Float{
+        return currentHp.toFloat() / maxHp.toFloat()
     }
 }
