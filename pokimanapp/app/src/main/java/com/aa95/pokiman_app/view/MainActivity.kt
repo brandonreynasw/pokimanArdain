@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             if(it.currentHp <= 0){
                 binding.pokemon2Info.hpBarView.layoutParams.width = 1
             }else{
-                val percent = calculatePercent(it.currentHp, it.maxHp)
+                val percent = calculateHpBarPercent(it.currentHp, it.maxHp)
                 binding.pokemon2Info.hpBarView.layoutParams.width = (660 * percent).toInt()
             }
         })
     }
 
-    private fun calculatePercent(currentHp: Int, maxHp: Int) : Float{
+    private fun calculateHpBarPercent(currentHp: Int, maxHp: Int) : Float{
         return currentHp.toFloat() / maxHp.toFloat()
     }
 }
