@@ -9,9 +9,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val myPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData()
+    val isMyTurn: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         getPokemon()
+        isMyTurn.value = true
     }
 
     private fun getPokemon(){
@@ -23,15 +25,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if(attacked){
             myPokemon.value.apply {
                 this?.let {
-                    this.currentHp = if(this.currentHp == 0) 0 else this.currentHp - damage
+                    this.currentHp = if((this.currentHp - damage) <= 0) 0 else this.currentHp - damage
                     myPokemon.value = this
+                    isMyTurn.value = true
                 }
             }
         }else{
             enemyPokemon.value.apply {
                 this?.let {
-                    this.currentHp = if (this.currentHp == 0) 0 else this.currentHp - damage
+                    this.currentHp = if ((this.currentHp - damage) <= 0) 0 else this.currentHp - damage
                     enemyPokemon.value = this
+                    isMyTurn.value = false
                 }
             }
         }
