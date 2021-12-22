@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="pokemon1"
+            type="com.aa95.pokiman_app.model.Pokemon" />
+        <variable
+            name="pokemon2"
+            type="com.aa95.pokiman_app.model.Pokemon" />
+        
+        <variable
+            name="viewModel"
+            type="com.aa95.pokiman_app.viewmodel.MainViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.MainActivity">
+
+
+        <ImageView
+            android:id="@+id/pokemon_img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/interface_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/pokemon_img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="352dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <include
+            android:id="@+id/pokemon1_info"
+            layout="@layout/info_layout"
+            app:pokemon="@{pokemon1}"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="26dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pokemon_img_1"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_img_1"
+            app:layout_constraintTop_toTopOf="@+id/pokemon_img_1" />
+
+        <include
+            android:id="@+id/pokemon2_info"
+            layout="@layout/info_layout"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            app:pokemon="@{pokemon2}"
+            app:layout_constraintBottom_toBottomOf="@+id/pokemon_img_2"
+            app:layout_constraintEnd_toStartOf="@+id/pokemon_img_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pokemon_img_2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/interface_layout"
+            android:layout_width="match_parent"
+            android:layout_height="197dp"
+            android:background="@color/green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:onClick="@{() -> viewModel.attackPokemon(false, pokemon1.attack)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
