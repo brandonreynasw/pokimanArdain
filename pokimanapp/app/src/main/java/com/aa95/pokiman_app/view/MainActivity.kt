@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             .load("https://i.pinimg.com/originals/2c/f7/85/2cf785c8694626fe3d341c53992abc00.jpg")
             .placeholder(R.drawable.hp_bar)
             .into(binding.pokemonImg1)
-        
+
         viewModel.myPokemon.observe(this, Observer {
             if(it.currentHp <= 0){
                 binding.pokemon1Info.hpBarView.layoutParams.width = 1
