@@ -18,26 +18,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.MainActivity">
+        tools:context=".view.MainActivity"
+        >
 
 
         <ImageView
             android:id="@+id/pokemon_img_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@+id/interface_layout"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@tools:sample/avatars" />
+            android:src="@drawable/hp_bar"  />
 
         <ImageView
             android:id="@+id/pokemon_img_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="352dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            android:src="@drawable/hp_bar" />
 
         <include
             android:id="@+id/pokemon1_info"

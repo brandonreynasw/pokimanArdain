@@ -36,7 +36,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/pokemon_name_text"
             app:layout_constraintStart_toEndOf="@+id/pokemon_name_text"
             app:layout_constraintTop_toTopOf="@+id/pokemon_name_text"
-            android:text="@{pokemon.hp}"
+            android:text="@{Integer.toString(pokemon.hp)}"
             tools:text="10/19" />
 
         <View
