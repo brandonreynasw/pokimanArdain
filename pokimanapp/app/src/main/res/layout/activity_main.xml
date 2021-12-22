@@ -22,8 +22,7 @@
             android:layout_height="100dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@+id/interface_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/hp_bar"  />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/pokemon_img_2"
@@ -32,8 +31,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="352dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/hp_bar" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <include
             android:id="@+id/pokemon1_info"
