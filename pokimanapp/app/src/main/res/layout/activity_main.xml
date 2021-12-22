@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="pokemon1"
-            type="com.aa95.pokiman_app.model.Pokemon" />
-        <variable
-            name="pokemon2"
-            type="com.aa95.pokiman_app.model.Pokemon" />
         
         <variable
             name="viewModel"
@@ -67,18 +61,18 @@
             android:id="@+id/interface_layout"
             android:layout_width="match_parent"
             android:layout_height="197dp"
-            android:background="@color/teal_200"
+            android:background="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:text="Attack"
                 android:background="@drawable/buttons_background"
                 android:enabled="@{viewModel.isMyTurn()}"
-                android:onClick="@{() -> viewModel.attackPokemon(false, pokemon1.attack)}"
+                android:onClick="@{() -> viewModel.attackPokemon(false, viewModel.myPokemon.attack)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
