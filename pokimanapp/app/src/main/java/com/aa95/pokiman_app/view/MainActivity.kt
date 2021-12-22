@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         render()
     }
@@ -39,12 +39,17 @@ class MainActivity : AppCompatActivity() {
                 binding.pokemon2Info.hpBarView.layoutParams.width = 1
             }else{
                 val percent = calculateHpBarPercent(it.currentHp, it.maxHp)
-                binding.pokemon2Info.hpBarView.layoutParams.width = (660 * percent).toInt()
+                binding.pokemon2Info.hpBarView.layoutParams.width = (HPBARWIDTH * percent).toInt()
             }
         })
     }
 
     private fun calculateHpBarPercent(currentHp: Int, maxHp: Int) : Float{
         return currentHp.toFloat() / maxHp.toFloat()
+    }
+
+
+    companion object{
+        const val HPBARWIDTH = 660
     }
 }
