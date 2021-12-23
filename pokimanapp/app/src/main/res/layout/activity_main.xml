@@ -20,6 +20,7 @@
             android:id="@+id/pokemon_img_1"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            imageUrl="@{`https://i.pinimg.com/originals/2c/f7/85/2cf785c8694626fe3d341c53992abc00.jpg`}"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@+id/interface_layout"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -28,6 +29,7 @@
             android:id="@+id/pokemon_img_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            imageUrl="@{`http://pm1.narvii.com/6104/d8e08bd5c1ec886de7a58db6e17422992ff85490_00.jpg`}"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="352dp"
             app:layout_constraintEnd_toEndOf="parent"
