@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">pokiman-app</string>
+    <string name="hp_stats">%1$s / %2$s</string>
+
 </resources>

@@ -36,7 +36,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/pokemon_name_text"
             app:layout_constraintStart_toEndOf="@+id/pokemon_name_text"
             app:layout_constraintTop_toTopOf="@+id/pokemon_name_text"
-            android:text="@{Integer.toString(pokemon.currentHp)}"
+            currentHp="@{Integer.toString(pokemon.currentHp)}"
+            maxHp="@{Integer.toString(pokemon.maxHp)}"
             tools:text="10/19" />
 
         <View
