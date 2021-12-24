@@ -1,11 +1,10 @@
 package com.aa95.pokiman_app.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.aa95.pokiman_app.model.Pokemon
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application) {
 
     val myPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData()
