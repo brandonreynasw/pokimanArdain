@@ -8,12 +8,17 @@
         <variable
             name="pokemon"
             type="com.aa95.pokiman_app.model.Pokemon" />
+
+        <variable
+            name="viewModel"
+            type="com.aa95.pokiman_app.viewmodel.BattleViewModel" />
     </data>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/hp_border">
+
 
         <TextView
             android:id="@+id/pokemon_name_text"

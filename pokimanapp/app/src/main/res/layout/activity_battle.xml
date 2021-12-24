@@ -23,7 +23,20 @@
             imageUrl="@{`https://i.pinimg.com/originals/2c/f7/85/2cf785c8694626fe3d341c53992abc00.jpg`}"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@+id/interface_layout"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            receivedDamage="@{viewModel.receivedDamaged}"
+            viewModel="@{viewModel}"
+            inflictedDamage="@{viewModel.inflictedDamaged}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="@{viewModel.myFeed}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon1_info"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1_info"
+            tools:text="Pickachu" />
 
         <ImageView
             android:id="@+id/pokemon_img_2"
@@ -33,8 +46,21 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="352dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            receivedDamage="@{viewModel.enemyReceivedDamaged}"
+            viewModel="@{viewModel}"
+            inflictedDamage="@{viewModel.enemyInflictedDamaged}"/>
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="@{viewModel.enemyFeed}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2_info"
+            app:layout_constraintStart_toStartOf="@+id/pokemon2_info"
+            tools:text="Pickachu" />
         <include
             android:id="@+id/pokemon1_info"
             layout="@layout/info_layout"

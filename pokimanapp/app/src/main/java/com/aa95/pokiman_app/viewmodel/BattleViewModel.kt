@@ -9,10 +9,17 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     val myPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val isMyTurn: MutableLiveData<Boolean> = MutableLiveData()
+    val isEnemyTurn: MutableLiveData<Boolean> = MutableLiveData()
+    val receivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val enemyReceivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val inflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val enemyInflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val enemyFeed: MutableLiveData<String> = MutableLiveData(null)
+    val myFeed: MutableLiveData<String> = MutableLiveData(null)
 
     init {
         getPokemon()
-        isMyTurn.value = true
+        startTurn()
     }
 
     private fun getPokemon() {
@@ -22,34 +29,32 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
 
     fun attackPokemon(attacked: Boolean, damage: Int) {
         if (attacked) {
-            myPokemon.value?.let {
-                it.currentHp =
-                    if ((it.currentHp - damage) <= 0) 0 else it.currentHp - damage
-                myPokemon.value = it
-                isMyTurn.value = true
-            }
+            enemyInflictedDamaged.value = true
         } else {
-            enemyPokemon.value?.let {
-                it.currentHp = if ((it.currentHp - damage) <= 0) 0 else it.currentHp - damage
-                enemyPokemon.value = it
-                endTurn()
-            }
+            inflictedDamaged.value = true
         }
     }
 
-    private fun enemyTurn() {
-
+    fun enemyTurn() {
+        isEnemyTurn.value = true
         enemyPokemon.value?.let {
             attackPokemon(true, it.attack)
         }
-
     }
 
-    private fun endTurn(){
-
+    fun endTurn() {
         isMyTurn.value = false
-        enemyTurn()
-
+        enemyReceivedDamaged.value = null
     }
 
+    fun startTurn() {
+        isMyTurn.value = true
+        isEnemyTurn.value = false
+        receivedDamaged.value = null
+    }
+
+}
+
+enum class Actions {
+    ATTACK
 }
