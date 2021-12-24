@@ -129,15 +129,4 @@ object BindingAdapters {
             }
         }
     }
-
-
-    @BindingAdapter("inflictedDamage", "viewModel")
-    @JvmStatic
-    fun animateInflictDamage(
-        imgView: ImageView,
-        inflictedDamage: Boolean?,
-        viewModel: BattleViewModel?
-    ) {
-
-    }
 }
