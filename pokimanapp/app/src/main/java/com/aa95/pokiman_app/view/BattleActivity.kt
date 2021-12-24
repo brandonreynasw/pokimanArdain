@@ -6,18 +6,17 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.aa95.pokiman_app.R
-import com.aa95.pokiman_app.databinding.ActivityMainBinding
-import com.aa95.pokiman_app.viewmodel.MainViewModel
-import com.bumptech.glide.Glide
+import com.aa95.pokiman_app.databinding.ActivityBattleBinding
+import com.aa95.pokiman_app.viewmodel.BattleViewModel
 
-class MainActivity : AppCompatActivity() {
+class BattleActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
-    private lateinit var binding: ActivityMainBinding
+    private val viewModel: BattleViewModel by viewModels()
+    private lateinit var binding: ActivityBattleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_battle)
 
         this.supportActionBar?.hide()
         init()
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun init(){
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_battle)
         binding.lifecycleOwner = this
         render()
     }

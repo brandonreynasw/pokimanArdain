@@ -7,12 +7,12 @@
         
         <variable
             name="viewModel"
-            type="com.aa95.pokiman_app.viewmodel.MainViewModel" />
+            type="com.aa95.pokiman_app.viewmodel.BattleViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.MainActivity"
+        tools:context=".view.BattleActivity"
         >
 
 
