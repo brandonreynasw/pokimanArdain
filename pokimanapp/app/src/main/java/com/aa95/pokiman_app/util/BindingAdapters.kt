@@ -53,11 +53,12 @@ object BindingAdapters {
                 if (viewModel != null) {
                     animShake.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(p0: Animation?) {
-                            if (viewModel.isEnemyTurn.value == true){
-                                viewModel.enemyFeed.value = "Tackle ${viewModel.enemyPokemon.value?.attack} DAMAGE"
-                            }
-                            else if(viewModel.isMyTurn.value == true){
-                                viewModel.myFeed.value = "Tackle ${viewModel.myPokemon.value?.attack} DAMAGE"
+                            if (viewModel.isEnemyTurn.value == true) {
+                                viewModel.enemyFeed.value =
+                                    "Tackle ${viewModel.enemyPokemon.value?.attack} DAMAGE"
+                            } else if (viewModel.isMyTurn.value == true) {
+                                viewModel.myFeed.value =
+                                    "Tackle ${viewModel.myPokemon.value?.attack} DAMAGE"
                             }
                         }
 
