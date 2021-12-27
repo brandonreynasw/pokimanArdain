@@ -54,7 +54,6 @@ object BindingAdapters {
                             override fun onAnimationStart(p0: Animation?) {
                                 //If the animation starts during our turn, end turn in order for onAnimationEnd to work good
                                 if (viewModel.isMyTurn.value == true) {
-                                    viewModel.endTurn()
                                     viewModel.myFeed.value =
                                         "Heal ${action.hp} hp"
                                 }
@@ -68,9 +67,9 @@ object BindingAdapters {
 
                                 if (viewModel.isEnemyTurn.value == true) {
                                     viewModel.healEnemy(action.hp)
-
                                     viewModel.startTurn()
-                                } else if (viewModel.isMyTurn.value == false) { //We set this false during the animation start and start enemy turn
+                                } else if (viewModel.isMyTurn.value == true) {
+                                    viewModel.endTurn()
                                     viewModel.heal(action.hp)
                                     viewModel.enemyTurn()
                                 }
@@ -89,17 +88,14 @@ object BindingAdapters {
                     if (viewModel != null) {
                         animShake.setAnimationListener(object : Animation.AnimationListener {
                             override fun onAnimationStart(p0: Animation?) {
-                                //If the animation starts during our turn, end turn in order for onAnimationEnd to work good
-                                if (viewModel.isMyTurn.value == true) {
-                                    viewModel.endTurn()
-                                }
                             }
 
                             override fun onAnimationEnd(p0: Animation?) {
 
                                 if (viewModel.isEnemyTurn.value == true) {
                                     viewModel.startTurn()
-                                } else if (viewModel.isMyTurn.value == false) { //We set this false during the animation start and start enemy turn
+                                } else if (viewModel.isMyTurn.value == true) {
+                                    viewModel.endTurn()
                                     viewModel.enemyTurn()
                                 }
                             }
