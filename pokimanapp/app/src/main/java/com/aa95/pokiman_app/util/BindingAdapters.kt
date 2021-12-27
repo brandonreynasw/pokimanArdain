@@ -65,25 +65,9 @@ object BindingAdapters {
                         override fun onAnimationEnd(p0: Animation?) {
 
                             if (viewModel.isEnemyTurn.value == true) {
-                                viewModel.inflictedDamaged.value = null
-                                viewModel.receivedDamaged.value = true
-                                viewModel.myPokemon.value?.let { myPokemon ->
-                                    viewModel.enemyPokemon.value?.let { enemyPokemon ->
-                                        myPokemon.currentHp =
-                                            if ((myPokemon.currentHp - enemyPokemon.attack) <= 0) 0 else myPokemon.currentHp - enemyPokemon.attack
-                                    }
-                                    viewModel.myPokemon.value = myPokemon
-                                }
+                                viewModel.calculateMyHp()
                             } else if (viewModel.isMyTurn.value == true) {
-                                viewModel.enemyInflictedDamaged.value = null
-                                viewModel.enemyReceivedDamaged.value = true
-                                viewModel.enemyPokemon.value?.let { enemyPokemon ->
-                                    viewModel.myPokemon.value?.let { myPokemon ->
-                                        enemyPokemon.currentHp =
-                                            if ((enemyPokemon.currentHp - myPokemon.attack) <= 0) 0 else enemyPokemon.currentHp - myPokemon.attack
-                                    }
-                                    viewModel.enemyPokemon.value = enemyPokemon
-                                }
+                                viewModel.calculateEnemyHp()
                             }
                         }
 

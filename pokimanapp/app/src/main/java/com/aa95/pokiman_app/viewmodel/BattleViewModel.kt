@@ -53,6 +53,29 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
         receivedDamaged.value = null
     }
 
+    fun calculateMyHp(){
+        inflictedDamaged.value = null
+        receivedDamaged.value = true
+        myPokemon.value?.let { myPokemon ->
+            enemyPokemon.value?.let { enemyPokemon ->
+                myPokemon.currentHp =
+                    if ((myPokemon.currentHp - enemyPokemon.attack) <= 0) 0 else myPokemon.currentHp - enemyPokemon.attack
+            }
+            this.myPokemon.value = myPokemon
+        }
+    }
+
+    fun calculateEnemyHp(){
+        enemyInflictedDamaged.value = null
+        enemyReceivedDamaged.value = true
+        enemyPokemon.value?.let { enemyPokemon ->
+            myPokemon.value?.let { myPokemon ->
+                enemyPokemon.currentHp =
+                    if ((enemyPokemon.currentHp - myPokemon.attack) <= 0) 0 else enemyPokemon.currentHp - myPokemon.attack
+            }
+            this.enemyPokemon.value = enemyPokemon
+        }
+    }
 }
 
 enum class Actions {
