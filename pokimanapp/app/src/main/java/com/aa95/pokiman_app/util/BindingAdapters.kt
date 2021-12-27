@@ -69,7 +69,6 @@ object BindingAdapters {
                                     viewModel.healEnemy(action.hp)
                                     viewModel.startTurn()
                                 } else if (viewModel.isMyTurn.value == true) {
-                                    viewModel.endTurn()
                                     viewModel.heal(action.hp)
                                     viewModel.enemyTurn()
                                 }
@@ -95,7 +94,6 @@ object BindingAdapters {
                                 if (viewModel.isEnemyTurn.value == true) {
                                     viewModel.startTurn()
                                 } else if (viewModel.isMyTurn.value == true) {
-                                    viewModel.endTurn()
                                     viewModel.enemyTurn()
                                 }
                             }

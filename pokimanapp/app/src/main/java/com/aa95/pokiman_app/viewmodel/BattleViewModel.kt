@@ -40,6 +40,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun enemyTurn() {
+        isMyTurn.value = false
         clearFeed()
         clearState()
         if (checkIfAlive()) {
@@ -50,9 +51,6 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun endTurn() {
-        isMyTurn.value = false
-    }
 
     fun startTurn() {
         clearFeed()
