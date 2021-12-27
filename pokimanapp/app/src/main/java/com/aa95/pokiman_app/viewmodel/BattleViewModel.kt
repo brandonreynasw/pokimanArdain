@@ -11,14 +11,12 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     val isMyTurn: MutableLiveData<Boolean> = MutableLiveData()
     val endingMyTurn: MutableLiveData<Boolean> = MutableLiveData(false)
     val isEnemyTurn: MutableLiveData<Boolean> = MutableLiveData()
-    val receivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
-    val enemyReceivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
-    val inflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
-    val enemyInflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isDead: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isEnemyDead: MutableLiveData<Boolean> = MutableLiveData(false)
+
     val enemyFeed: MutableLiveData<String> = MutableLiveData(null)
     val myFeed: MutableLiveData<String> = MutableLiveData(null)
+
+    val myActionEvent: MutableLiveData<ActionEvent> = MutableLiveData()
+    val enemyActionEvent: MutableLiveData<ActionEvent> = MutableLiveData()
 
     init {
         getPokemon()
@@ -30,92 +28,125 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
         enemyPokemon.value = Pokemon("Raichu", 100, 10, 10, 100)
     }
 
-    fun attackPokemon(attacked: Boolean, damage: Int) {
+    fun attackPokemon(attacked: Boolean) {
         if (attacked) {
-            enemyInflictedDamaged.value = true
+            myActionEvent.value = ActionEvent.Action.GettingAttacked
+            enemyActionEvent.value = ActionEvent.Action.Attacking(enemyPokemon.value?.attack ?: 0)
         } else {
+            enemyActionEvent.value = ActionEvent.Action.GettingAttacked
+            myActionEvent.value = ActionEvent.Action.Attacking(myPokemon.value?.attack ?: 0)
             endingMyTurn.value = true
-            inflictedDamaged.value = true
         }
     }
 
     fun enemyTurn() {
         clearFeed()
-        if (checkIfAlive()){
+        clearState()
+        if (checkIfAlive()) {
             isEnemyTurn.value = true
             enemyPokemon.value?.let {
-                attackPokemon(true, it.attack)
+                attackPokemon(true)
             }
         }
     }
 
     fun endTurn() {
         isMyTurn.value = false
-        enemyReceivedDamaged.value = null
     }
 
     fun startTurn() {
         clearFeed()
+        clearState()
         if (checkIfAlive()) {
             endingMyTurn.value = false
             isMyTurn.value = true
             isEnemyTurn.value = false
-            receivedDamaged.value = null
         }
     }
 
-    fun calculateMyHp() {
-        inflictedDamaged.value = null
-        receivedDamaged.value = true
+    fun calculateMyHp(damage: Int) {
+        myActionEvent.value = ActionEvent.Action.Attacked
         myPokemon.value?.let { myPokemon ->
-            enemyPokemon.value?.let { enemyPokemon ->
-                myPokemon.currentHp =
-                    if ((myPokemon.currentHp - enemyPokemon.attack) <= 0) 0 else myPokemon.currentHp - enemyPokemon.attack
-            }
+            myPokemon.currentHp =
+                if ((myPokemon.currentHp - damage) <= 0) 0 else myPokemon.currentHp - damage
+
             this.myPokemon.value = myPokemon
         }
     }
 
-    fun calculateEnemyHp() {
-        enemyInflictedDamaged.value = null
-        enemyReceivedDamaged.value = true
+    fun calculateEnemyHp(damage: Int) {
+        enemyActionEvent.value = ActionEvent.Action.Attacked
         enemyPokemon.value?.let { enemyPokemon ->
-            myPokemon.value?.let { myPokemon ->
-                enemyPokemon.currentHp =
-                    if ((enemyPokemon.currentHp - myPokemon.attack) <= 0) 0 else enemyPokemon.currentHp - myPokemon.attack
-            }
+            enemyPokemon.currentHp =
+                if ((enemyPokemon.currentHp - damage) <= 0) 0 else enemyPokemon.currentHp - damage
+
             this.enemyPokemon.value = enemyPokemon
         }
+
     }
 
-    private fun checkIfAlive(): Boolean
-    {
+    private fun checkIfAlive(): Boolean {
         if (myPokemon.value?.currentHp != 0 && enemyPokemon.value?.currentHp != 0) {
             return true
-        }
-        else{
+        } else {
             endBattle()
         }
 
         return false
     }
 
-    private fun endBattle(){
-        if(myPokemon.value?.currentHp == 0){
-            isDead.value = true
+    private fun endBattle() {
+        if (myPokemon.value?.currentHp == 0) {
+            myActionEvent.value = ActionEvent.Action.Dying
             myFeed.value = "DEAD"
-        }else if(enemyPokemon.value?.currentHp == 0){
-            isEnemyDead.value = true
+        } else if (enemyPokemon.value?.currentHp == 0) {
+            enemyActionEvent.value = ActionEvent.Action.Dying
             enemyFeed.value = "DEAD"
         }
     }
 
-    private fun clearFeed(){
+    private fun clearFeed() {
         myFeed.value = null
         enemyFeed.value = null
     }
+
+    private fun clearState() {
+        myActionEvent.value = null
+        enemyActionEvent.value = null
+    }
+
+    fun healPokemon(healed: Boolean, hp: Int) {
+        if (healed) {
+            endingMyTurn.value = true
+            myActionEvent.value = ActionEvent.Action.Heal(hp)
+        }else{
+            enemyActionEvent.value = ActionEvent.Action.Heal(hp)
+        }
+    }
+
+    fun heal(hp: Int){
+
+        myPokemon.value?.let { myPokemon ->
+            myPokemon.currentHp += hp
+            this.myPokemon.value = myPokemon
+        }
+    }
+
+    fun healEnemy(hp: Int){
+        enemyPokemon.value?.let { enemyPokemon ->
+            enemyPokemon.currentHp += hp
+            this.enemyPokemon.value = enemyPokemon
+        }
+    }
+
 }
 
-enum class Actions {
-    ATTACK
+sealed class ActionEvent {
+    sealed class Action : ActionEvent() {
+        data class Attacking(val damage: Int) : Action()
+        object GettingAttacked : Action()
+        data class Heal(val hp: Int) : Action()
+        object Attacked : Action()
+        object Dying : Action()
+    }
 }
