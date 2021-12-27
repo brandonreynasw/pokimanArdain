@@ -9,6 +9,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     val myPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData()
     val isMyTurn: MutableLiveData<Boolean> = MutableLiveData()
+    val endingMyTurn: MutableLiveData<Boolean> = MutableLiveData(false)
     val isEnemyTurn: MutableLiveData<Boolean> = MutableLiveData()
     val receivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
     val enemyReceivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -31,6 +32,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
         if (attacked) {
             enemyInflictedDamaged.value = true
         } else {
+            endingMyTurn.value = true
             inflictedDamaged.value = true
         }
     }
@@ -48,6 +50,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun startTurn() {
+        endingMyTurn.value = false
         isMyTurn.value = true
         isEnemyTurn.value = false
         receivedDamaged.value = null

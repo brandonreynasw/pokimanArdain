@@ -98,7 +98,7 @@
                 android:layout_height="50dp"
                 android:text="Attack"
                 android:background="@drawable/buttons_background"
-                android:enabled="@{viewModel.isMyTurn()}"
+                android:enabled="@{viewModel.isMyTurn() &amp;&amp; !viewModel.endingMyTurn}"
                 android:onClick="@{() -> viewModel.attackPokemon(false, viewModel.myPokemon.attack)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
