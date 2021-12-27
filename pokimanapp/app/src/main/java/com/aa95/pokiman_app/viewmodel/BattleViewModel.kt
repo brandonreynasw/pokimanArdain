@@ -40,6 +40,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun enemyTurn() {
+        clearFeed()
         if (checkIfAlive()){
             isEnemyTurn.value = true
             enemyPokemon.value?.let {
@@ -54,7 +55,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun startTurn() {
-
+        clearFeed()
         if (checkIfAlive()) {
             endingMyTurn.value = false
             isMyTurn.value = true
@@ -102,9 +103,16 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     private fun endBattle(){
         if(myPokemon.value?.currentHp == 0){
             isDead.value = true
+            myFeed.value = "DEAD"
         }else if(enemyPokemon.value?.currentHp == 0){
             isEnemyDead.value = true
+            enemyFeed.value = "DEAD"
         }
+    }
+
+    private fun clearFeed(){
+        myFeed.value = null
+        enemyFeed.value = null
     }
 }
 

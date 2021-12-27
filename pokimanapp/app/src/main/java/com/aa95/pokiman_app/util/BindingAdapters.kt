@@ -99,11 +99,9 @@ object BindingAdapters {
 
                             if (viewModel.isEnemyTurn.value == true) {
                                 viewModel.startTurn()
-                                viewModel.enemyFeed.value = null
 
                             } else if (viewModel.isMyTurn.value == false) { //We set this false during the animation start and start enemy turn
                                 viewModel.enemyTurn()
-                                viewModel.myFeed.value = null
                             }
                         }
 
