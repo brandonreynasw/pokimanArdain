@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.BattleActivity"
+        android:background="@color/white"
         >
 
 
@@ -42,7 +43,7 @@
             android:id="@+id/pokemon_img_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            imageUrl="@{`http://pm1.narvii.com/6104/d8e08bd5c1ec886de7a58db6e17422992ff85490_00.jpg`}"
+            imageUrl="@{`https://pm1.narvii.com/6104/d8e08bd5c1ec886de7a58db6e17422992ff85490_00.jpg`}"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="352dp"
             app:layout_constraintEnd_toEndOf="parent"
