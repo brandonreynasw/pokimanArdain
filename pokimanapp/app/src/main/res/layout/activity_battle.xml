@@ -27,7 +27,8 @@
             app:layout_constraintStart_toStartOf="parent"
             receivedDamage="@{viewModel.receivedDamaged}"
             viewModel="@{viewModel}"
-            inflictedDamage="@{viewModel.inflictedDamaged}"/>
+            inflictedDamage="@{viewModel.inflictedDamaged}"
+            dead="@{viewModel.isDead()}"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +51,8 @@
             app:layout_constraintTop_toTopOf="parent"
             receivedDamage="@{viewModel.enemyReceivedDamaged}"
             viewModel="@{viewModel}"
-            inflictedDamage="@{viewModel.enemyInflictedDamaged}"/>
+            inflictedDamage="@{viewModel.enemyInflictedDamaged}"
+            dead="@{viewModel.isEnemyDead()}"/>
 
         <TextView
             android:id="@+id/textView"

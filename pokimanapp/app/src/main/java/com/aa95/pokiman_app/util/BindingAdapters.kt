@@ -1,5 +1,6 @@
 package com.aa95.pokiman_app.util
 
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -34,13 +35,14 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter("receivedDamage", "viewModel", "inflictedDamage")
+    @BindingAdapter("receivedDamage", "viewModel", "inflictedDamage", "dead")
     @JvmStatic
     fun animateDamage(
         imgView: ImageView,
         receivedDamage: Boolean?,
         viewModel: BattleViewModel?,
-        inflictedDamage: Boolean?
+        inflictedDamage: Boolean?,
+        dead: Boolean?
     ) {
         if (inflictedDamage != null) {
             if (inflictedDamage) {
@@ -112,6 +114,26 @@ object BindingAdapters {
 
                 }
             }
+        }
+        if (dead != null){
+            if(dead){
+                val animDead = AnimationUtils.loadAnimation(imgView.context, R.anim.slide_down)
+                imgView.startAnimation(animDead)
+                animDead.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(p0: Animation?) {
+
+                    }
+
+                    override fun onAnimationEnd(p0: Animation?) {
+                        imgView.visibility = View.INVISIBLE
+                    }
+
+                    override fun onAnimationRepeat(p0: Animation?) {
+                    }
+
+                })
+            }
+
         }
     }
 }

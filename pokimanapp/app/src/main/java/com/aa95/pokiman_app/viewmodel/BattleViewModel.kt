@@ -15,6 +15,8 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     val enemyReceivedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
     val inflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
     val enemyInflictedDamaged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isDead: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isEnemyDead: MutableLiveData<Boolean> = MutableLiveData(false)
     val enemyFeed: MutableLiveData<String> = MutableLiveData(null)
     val myFeed: MutableLiveData<String> = MutableLiveData(null)
 
@@ -25,7 +27,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
 
     private fun getPokemon() {
         myPokemon.value = Pokemon("Pikachu", 100, 10, 10, 100)
-        enemyPokemon.value = Pokemon("Raichu", 100, 10, 10, 100)
+        enemyPokemon.value = Pokemon("Raichu", 100, 10, 10, 10)
     }
 
     fun attackPokemon(attacked: Boolean, damage: Int) {
@@ -38,9 +40,11 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun enemyTurn() {
-        isEnemyTurn.value = true
-        enemyPokemon.value?.let {
-            attackPokemon(true, it.attack)
+        if (checkIfAlive()){
+            isEnemyTurn.value = true
+            enemyPokemon.value?.let {
+                attackPokemon(true, it.attack)
+            }
         }
     }
 
@@ -50,13 +54,16 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun startTurn() {
-        endingMyTurn.value = false
-        isMyTurn.value = true
-        isEnemyTurn.value = false
-        receivedDamaged.value = null
+
+        if (checkIfAlive()) {
+            endingMyTurn.value = false
+            isMyTurn.value = true
+            isEnemyTurn.value = false
+            receivedDamaged.value = null
+        }
     }
 
-    fun calculateMyHp(){
+    fun calculateMyHp() {
         inflictedDamaged.value = null
         receivedDamaged.value = true
         myPokemon.value?.let { myPokemon ->
@@ -68,7 +75,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun calculateEnemyHp(){
+    fun calculateEnemyHp() {
         enemyInflictedDamaged.value = null
         enemyReceivedDamaged.value = true
         enemyPokemon.value?.let { enemyPokemon ->
@@ -77,6 +84,26 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
                     if ((enemyPokemon.currentHp - myPokemon.attack) <= 0) 0 else enemyPokemon.currentHp - myPokemon.attack
             }
             this.enemyPokemon.value = enemyPokemon
+        }
+    }
+
+    private fun checkIfAlive(): Boolean
+    {
+        if (myPokemon.value?.currentHp != 0 && enemyPokemon.value?.currentHp != 0) {
+            return true
+        }
+        else{
+            endBattle()
+        }
+
+        return false
+    }
+
+    private fun endBattle(){
+        if(myPokemon.value?.currentHp == 0){
+            isDead.value = true
+        }else if(enemyPokemon.value?.currentHp == 0){
+            isEnemyDead.value = true
         }
     }
 }
