@@ -13,6 +13,7 @@ class BattleActivity : AppCompatActivity() {
 
     private val viewModel: BattleViewModel by viewModels()
     private lateinit var binding: ActivityBattleBinding
+    private var hpBarSize = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,7 @@ class BattleActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_battle)
         binding.lifecycleOwner = this
+        hpBarSize = binding.pokemon1Info.hpBarView.layoutParams.width
         render()
     }
 
@@ -37,7 +39,7 @@ class BattleActivity : AppCompatActivity() {
                 binding.pokemon1Info.hpBarView.layoutParams.width = 1
             }else{
                 val percent = calculateHpBarPercent(it.currentHp, it.maxHp)
-                binding.pokemon1Info.hpBarView.layoutParams.width = (HPBARWIDTH * percent).toInt()
+                binding.pokemon1Info.hpBarView.layoutParams.width = (hpBarSize * percent).toInt()
             }
         })
         viewModel.enemyPokemon.observe(this, Observer {
@@ -45,7 +47,7 @@ class BattleActivity : AppCompatActivity() {
                 binding.pokemon2Info.hpBarView.layoutParams.width = 1
             }else{
                 val percent = calculateHpBarPercent(it.currentHp, it.maxHp)
-                binding.pokemon2Info.hpBarView.layoutParams.width = (HPBARWIDTH * percent).toInt()
+                binding.pokemon2Info.hpBarView.layoutParams.width = (hpBarSize * percent).toInt()
             }
         })
     }
@@ -54,8 +56,4 @@ class BattleActivity : AppCompatActivity() {
         return currentHp.toFloat() / maxHp.toFloat()
     }
 
-
-    companion object{
-        const val HPBARWIDTH = 660
-    }
 }
