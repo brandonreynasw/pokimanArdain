@@ -8,12 +8,19 @@ import androidx.lifecycle.Observer
 import com.aa95.pokiman_app.R
 import com.aa95.pokiman_app.databinding.ActivityBattleBinding
 import com.aa95.pokiman_app.viewmodel.BattleViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class BattleActivity : AppCompatActivity() {
+
+    lateinit var testString: String
 
     private val viewModel: BattleViewModel by viewModels()
     private lateinit var binding: ActivityBattleBinding
     private var hpBarSize = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
