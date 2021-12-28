@@ -9,6 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.internal.managers.ApplicationComponentManager
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -16,10 +17,12 @@ import javax.inject.Singleton
 @InstallIn(ViewModelComponent::class)
 object AppModule {
 
+    @ViewModelScoped
     @Provides
     @Named("MyPokemon")
     fun provideMyPokemon() = Pokemon("Pikachu", 100,10,10,100)
-    
+
+    @ViewModelScoped
     @Provides
     @Named("EnemyPokemon")
     fun provideEnemyPokemon() = Pokemon("Raichu", 100, 10, 10, 100)
