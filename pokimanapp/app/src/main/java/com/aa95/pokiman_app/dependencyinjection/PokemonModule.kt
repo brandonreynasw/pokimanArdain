@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object AppModule {
+object PokemonModule {
 
     @ViewModelScoped
     @Provides
