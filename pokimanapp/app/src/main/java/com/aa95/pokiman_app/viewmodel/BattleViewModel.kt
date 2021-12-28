@@ -1,13 +1,21 @@
 package com.aa95.pokiman_app.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.aa95.pokiman_app.model.Pokemon
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import javax.inject.Named
 
-class BattleViewModel(application: Application) : BaseViewModel(application) {
+@HiltViewModel
+class BattleViewModel @Inject constructor(application: Application,
+                                          @Named("MyPokemon")private val pokemon1: Pokemon,
+                                          @Named("EnemyPokemon")private val pokemon2: Pokemon,
+                                          ) : BaseViewModel(application) {
 
-    val myPokemon: MutableLiveData<Pokemon> = MutableLiveData()
-    val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData()
+    val myPokemon: MutableLiveData<Pokemon> = MutableLiveData(pokemon1)
+    val enemyPokemon: MutableLiveData<Pokemon> = MutableLiveData(pokemon2)
     val isMyTurn: MutableLiveData<Boolean> = MutableLiveData()
     val endingMyTurn: MutableLiveData<Boolean> = MutableLiveData(false)
     val isEnemyTurn: MutableLiveData<Boolean> = MutableLiveData()
@@ -19,13 +27,7 @@ class BattleViewModel(application: Application) : BaseViewModel(application) {
     val enemyActionEvent: MutableLiveData<ActionEvent> = MutableLiveData()
 
     init {
-        getPokemon()
         startTurn()
-    }
-
-    private fun getPokemon() {
-        myPokemon.value = Pokemon("Pikachu", 100, 10, 10, 100)
-        enemyPokemon.value = Pokemon("Raichu", 100, 10, 10, 100)
     }
 
     fun attackPokemon(attacked: Boolean) {
