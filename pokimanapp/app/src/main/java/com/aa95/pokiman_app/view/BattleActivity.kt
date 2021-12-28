@@ -14,9 +14,6 @@ import javax.inject.Named
 
 @AndroidEntryPoint
 class BattleActivity : AppCompatActivity() {
-
-    lateinit var testString: String
-
     private val viewModel: BattleViewModel by viewModels()
     private lateinit var binding: ActivityBattleBinding
     private var hpBarSize = 0
